@@ -311,7 +311,14 @@ export default class Agenda extends Component<AgendaProps, State> {
 
       this.scrollTimeout = setTimeout(() => {
         if (this._isMounted) {
-          this.props.loadItemsForMonth?.(months[0]);
+
+          const month = months.find((month) => month.month === this.state.selectedDay.getUTCMonth() + 1);
+
+          if(month) {
+            this.props.loadItemsForMonth?.(month);
+          } else {
+            this.props.loadItemsForMonth?.(months[0]);
+          }
         }
       }, 200);
     }
